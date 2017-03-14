@@ -31,7 +31,6 @@ RUN ! ls /usr/bin/pep8 && ls /usr/lib/python3.4/dist-packages/pep8.py && cp /usr
 # Modules
 RUN pip3 install numpy
 RUN pip3 install SQLAlchemy
-RUN pip3 install mysqlclient
 
 # Fabric3
 RUN apt-get install -y libffi-dev
