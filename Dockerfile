@@ -3,9 +3,22 @@
 FROM holbertonschool/base-ubuntu-1404
 MAINTAINER Guillaume Salva <guillaume@holbertonschool.com>
 
+# Adding this repo for MySQL 5.7
+RUN echo 'deb http://repo.mysql.com/apt/ubuntu/ trusty mysql-5.7-dmr' >> /etc/apt/sources.list.d/mysql.list
+
 RUN apt-get update
 # curl/wget/git
 RUN apt-get install -y curl wget git
+
+# MySQL
+RUN echo "mysql-community-server mysql-community-server/data-dir select ''" | debconf-set-selections
+RUN echo "mysql-community-server mysql-community-server/root-pass password root" | debconf-set-selections
+RUN echo "mysql-community-server mysql-community-server/re-root-pass password root" | debconf-set-selections
+RUN echo "mysql-server-5.7 mysql-server/root_password password root" | debconf-set-selections
+RUN echo "mysql-server-5.7 mysql-server/root_password_again password root" | debconf-set-selections
+RUN apt-get install -y --force-yes mysql-server-5.7
+RUN sed -i 's/mysqld_safe >/\/usr\/sbin\/mysqld >/g' /etc/init.d/mysql 
+RUN apt-get install -y --force-yes libmysqlclient-dev
 
 # Python3
 RUN apt-get install -y libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev
@@ -31,6 +44,8 @@ RUN ! ls /usr/bin/pep8 && ls /usr/lib/python3.4/dist-packages/pep8.py && cp /usr
 # Modules
 RUN pip3 install numpy
 RUN pip3 install SQLAlchemy
+RUN pip3 install mysqlclient
+RUN pip3 install Flask
 
 # Fabric3
 RUN apt-get install -y libffi-dev
