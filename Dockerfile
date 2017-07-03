@@ -3,12 +3,18 @@
 FROM holbertonschool/base-ubuntu-1404
 MAINTAINER Guillaume Salva <guillaume@holbertonschool.com>
 
+RUN echo 'deb http://archive.ubuntu.com/ubuntu trusty-backports main restricted universe multiverse' >> /etc/apt/sources.list
 # Adding this repo for MySQL 5.7
 RUN echo 'deb http://repo.mysql.com/apt/ubuntu/ trusty mysql-5.7-dmr' >> /etc/apt/sources.list.d/mysql.list
 
 RUN apt-get update
 # curl/wget/git
 RUN apt-get install -y curl wget git
+
+RUN apt-get install -y vim emacs
+
+RUN apt-get install -y libc6-dev-i386
+RUN apt-get install -y libssl-dev
 
 # MySQL
 RUN echo "mysql-community-server mysql-community-server/data-dir select ''" | debconf-set-selections
