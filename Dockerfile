@@ -52,6 +52,14 @@ RUN pip3 install numpy
 RUN pip3 install SQLAlchemy
 RUN pip3 install mysqlclient
 
+RUN pip3 install Flask
+
+RUN apt-get install -y python3-lxml
+
+RUN pip3 install flask_cors
+RUN pip3 install flasgger
+
+
 # SSH
 RUN apt-get install -y openssh-server
 RUN mkdir /var/run/sshd
