@@ -50,6 +50,8 @@ RUN ! ls /usr/bin/pep8 && ls /usr/lib/python3.4/dist-packages/pep8.py && cp /usr
 
 RUN pip3 install numpy
 RUN pip3 install SQLAlchemy
+RUN pip3 install sqlalchemy
+RUN pip3 install sqlalchemy --upgrade
 RUN pip3 install mysqlclient
 
 RUN pip3 install Flask
