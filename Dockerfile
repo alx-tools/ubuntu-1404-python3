@@ -8,6 +8,11 @@ RUN echo 'deb http://archive.ubuntu.com/ubuntu trusty-backports main restricted 
 RUN echo 'deb http://repo.mysql.com/apt/ubuntu/ trusty mysql-5.7-dmr' >> /etc/apt/sources.list.d/mysql.list
 RUN apt-get update
 
+# curl/wget/git
+RUN apt-get install -y curl wget git
+# vim/emacs
+RUN apt-get install -y vim emacs
+
 # C
 RUN apt-get install -y build-essential gcc
 RUN apt-get install -y libc6-dev-i386
