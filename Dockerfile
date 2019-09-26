@@ -8,17 +8,8 @@ RUN echo 'deb http://archive.ubuntu.com/ubuntu trusty-backports main restricted 
 RUN echo 'deb http://repo.mysql.com/apt/ubuntu/ trusty mysql-5.7-dmr' >> /etc/apt/sources.list.d/mysql.list
 RUN apt-get update
 
-# curl/wget/git
-RUN apt-get install -y curl wget git
-# vim/emacs
-RUN apt-get install -y vim emacs
-# Shell
-RUN apt-get install -y bc
-RUN apt-get install -y shellcheck=0.3.3-1~ubuntu14.04.1
 # C
 RUN apt-get install -y build-essential gcc
-RUN apt-get install -y valgrind
-RUN apt-get install -y ltrace
 RUN apt-get install -y libc6-dev-i386
 RUN apt-get install -y libssl-dev
 
@@ -61,15 +52,6 @@ RUN apt-get install -y python3-lxml
 RUN pip3 install flask_cors
 RUN pip3 install flasgger
 
-
-# SSH
-RUN apt-get install -y openssh-server
-RUN mkdir /var/run/sshd
-
-RUN sed -ri 's/^PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
-RUN sed -ri 's/^#PasswordAuthentication/PasswordAuthentication/' /etc/ssh/sshd_config
-RUN sed -ri 's/^PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
-RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
 
 ADD run.sh /tmp/run.sh
 RUN chmod u+x /tmp/run.sh
