@@ -44,7 +44,7 @@ RUN pip3 uninstall pep8 ; pip3 install pep8 ; pip3 install --upgrade pep8
 # check if pep8 is correctly installed
 RUN ! ls /usr/bin/pep8 && ls /usr/lib/python3.4/dist-packages/pep8.py && cp /usr/lib/python3.4/dist-packages/pep8.py /usr/bin/pep8 && chmod u+x /usr/bin/pep8 && sed -i '1 s/^.*$/#!\/usr\/bin\/python3/g' /usr/bin/pep8 ; exit 0
 
-RUN pip3 install numpy
+RUN pip3 install numpy==1.15.0
 RUN pip3 install SQLAlchemy
 RUN pip3 install sqlalchemy
 RUN pip3 install sqlalchemy --upgrade
