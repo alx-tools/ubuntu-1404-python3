@@ -58,6 +58,15 @@ RUN pip3 install flask_cors
 RUN pip3 install flasgger
 
 
+# SSH
+RUN apt-get install -y openssh-server
+RUN mkdir /var/run/sshd
+
+RUN sed -ri 's/^PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN sed -ri 's/^#PasswordAuthentication/PasswordAuthentication/' /etc/ssh/sshd_config
+RUN sed -ri 's/^PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
+RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
+
 ADD run.sh /tmp/run.sh
 RUN chmod u+x /tmp/run.sh
 
