@@ -56,7 +56,7 @@ RUN apt-get install -y python3-lxml
 
 RUN pip3 install flask_cors
 RUN pip3 install flasgger
-
+RUN pip3 uninstall -y jsonschema ; pip3 install jsonschema==3.0.1
 
 # SSH
 RUN apt-get install -y openssh-server
