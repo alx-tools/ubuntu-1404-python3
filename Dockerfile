@@ -44,7 +44,7 @@ RUN pip3 install sqlalchemy
 RUN pip3 install sqlalchemy --upgrade
 RUN pip3 install mysqlclient==1.3.10
 
-RUN pip3 install Flask
+RUN pip3 install Flask==1.1.1
 
 RUN apt-get install -y python3-lxml
 
