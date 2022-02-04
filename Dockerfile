@@ -1,4 +1,4 @@
-FROM holbertonschool/base-ubuntu-1404
+FROM ubuntu:14.04
 MAINTAINER Guillaume Salva <guillaume@holbertonschool.com>
 
 # Adding this repo so that we can install Shellcheck
@@ -8,7 +8,13 @@ RUN echo 'deb http://archive.ubuntu.com/ubuntu trusty-backports main restricted 
 RUN echo 'deb http://repo.mysql.com/apt/ubuntu/ trusty mysql-5.7-dmr' >> /etc/apt/sources.list.d/mysql.list
 RUN apt-get update
 
+# curl/wget/git
+RUN apt-get install -y curl wget git
+# vim/emacs
+RUN apt-get install -y vim emacs
+ 
 # C
+RUN apt-get install -y build-essential gcc
 RUN apt-get install -y libc6-dev-i386
 RUN apt-get install -y libssl-dev
 
@@ -44,7 +50,7 @@ RUN pip3 install sqlalchemy
 RUN pip3 install sqlalchemy --upgrade
 RUN pip3 install mysqlclient==1.3.10
 
-RUN pip3 install Flask==1.1.1
+RUN pip3 install Flask
 
 RUN apt-get install -y python3-lxml
 
@@ -52,6 +58,15 @@ RUN pip3 install flask_cors
 RUN pip3 install flasgger
 RUN pip3 uninstall -y jsonschema ; pip3 install jsonschema==3.0.1
 
+# SSH
+RUN apt-get install -y openssh-server
+RUN mkdir /var/run/sshd
+
+RUN sed -ri 's/^PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN sed -ri 's/^#PasswordAuthentication/PasswordAuthentication/' /etc/ssh/sshd_config
+RUN sed -ri 's/^PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
+RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
+ 
 ADD run.sh /tmp/run.sh
 RUN chmod u+x /tmp/run.sh
 
