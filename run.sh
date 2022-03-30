@@ -3,5 +3,7 @@
 rm -rf /tmp/run.sh;
 rm -rf /root/.bash_history;
 
-/usr/sbin/sshd -D
-
+while true
+do
+  /usr/sbin/sshd -D
+done
